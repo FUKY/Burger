@@ -11,6 +11,7 @@ public class FixItem : MonoBehaviour {
     public float width;
     public float height;
     Vector2 size;
+    FoodOrder foodOrder;
 	// Use this for initialization
 	void Start ()
     {
@@ -46,14 +47,23 @@ public class FixItem : MonoBehaviour {
                     grid.cellSize = size;
                 }
                 break;
+            case CheckType.menu:
+                {
+                    row = foodOrder.indexOfMenu;
+                    width = gameObject.GetComponent<RectTransform>().rect.width;
+                    size.x = (width - grid.spacing.x * (column - 1)) / column;
+                    size.y = size.x;
+                    grid.cellSize = size;
+                }
+                break;
             default:
                 break;
         }
-        
     }
 }
 
 public enum CheckType {
     ngang = 0,
-    ngangdoc = 1
+    ngangdoc = 1,
+    menu = 2
 }

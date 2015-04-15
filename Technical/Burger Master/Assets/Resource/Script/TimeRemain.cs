@@ -18,7 +18,7 @@ public class TimeRemain : MonoBehaviour {
 	void Update () {
         if ((timeDecrease += Time.deltaTime) >= second)
         {
-            if (timeCurrent < 0)
+            if (timeCurrent <= 0)
             {
                 timeCurrent = 60;
                 timeColor.fillAmount = 1;
