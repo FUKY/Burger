@@ -10,10 +10,12 @@ public class FoodOrder : MonoBehaviour {
     int indexOfList;
     public int indexOfMenu;
     public Transform foodTransform;
+    FixItem fix;
 	// Use this for initialization
 	void Start ()
     {
-	
+        RandomFood();
+        fix.Fix();
 	}
 	
 	// Update is called once per frame
@@ -36,7 +38,7 @@ public class FoodOrder : MonoBehaviour {
     void RandomItem(int i)
     {
         GameObject a;
-        a = Instantiate(foodList[i], transform.position, Quaternion.identity) as GameObject;
+        a = Instantiate(foodList[i],transform.position, Quaternion.identity) as GameObject;
         a.transform.parent = foodTransform;
     }
 
@@ -45,10 +47,13 @@ public class FoodOrder : MonoBehaviour {
     {
         CheckActive();
         indexOfMenu = Random.Range(3, 7);
+
         for (int i = 0; i < indexOfMenu; i++)
         {
             indexOfList = Random.Range(0, foodList.Count);
             RandomItem(indexOfList);
         }
+        gameObject.GetComponent<FixItem>().Fix();
+        Debug.Log("Random");
     }
 }

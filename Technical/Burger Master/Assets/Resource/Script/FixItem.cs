@@ -26,14 +26,15 @@ public class FixItem : MonoBehaviour {
     //Dùng scale item theo column
     
     [ContextMenu("Fix")]
-    void Fix()
+    public void Fix()
     {
+        Debug.Log("FixItem");
+        width = gameObject.GetComponent<RectTransform>().rect.width;
+        height = gameObject.GetComponent<RectTransform>().rect.height;
         switch (type)
         {
             case CheckType.ngang:
                 {
-                    width = gameObject.GetComponent<RectTransform>().rect.width;
-                    height = gameObject.GetComponent<RectTransform>().rect.height;
                     size.x = (width - grid.spacing.x * (column - 1)) / column;
                     size.y = (height - grid.spacing.y * (row - 1)) / row;
                     grid.cellSize = size;
@@ -41,7 +42,6 @@ public class FixItem : MonoBehaviour {
                 break;
             case CheckType.ngangdoc:
                 {
-                    width = gameObject.GetComponent<RectTransform>().rect.width;
                     size.x = (width - grid.spacing.x * (column - 1)) / column;
                     size.y = size.x;
                     grid.cellSize = size;
@@ -49,10 +49,9 @@ public class FixItem : MonoBehaviour {
                 break;
             case CheckType.menu:
                 {
-                    row = foodOrder.indexOfMenu;
-                    width = gameObject.GetComponent<RectTransform>().rect.width;
+                    row = foodOrder.GetComponent<FoodOrder>().indexOfMenu;
                     size.x = (width - grid.spacing.x * (column - 1)) / column;
-                    size.y = size.x;
+                    size.y = (height - grid.spacing.y * (row - 1)) / row;
                     grid.cellSize = size;
                 }
                 break;
