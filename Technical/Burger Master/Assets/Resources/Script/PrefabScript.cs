@@ -14,11 +14,4 @@ public class PrefabScript : MonoBehaviour {
     {
 	    
 	}
-
-    public void CallOut(GameObject parentTransform)
-    {
-        GameObject trans;
-        trans = Instantiate(gameObject, parentTransform.transform.position, Quaternion.identity) as GameObject;
-        trans.transform.SetParent(parentTransform.transform);
-    }
 }
