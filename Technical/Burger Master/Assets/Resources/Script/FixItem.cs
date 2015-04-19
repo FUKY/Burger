@@ -12,6 +12,7 @@ public class FixItem : MonoBehaviour {
     public float width;
     public float height;
     Vector2 size;
+    public Vector2 spacing;
 	// Use this for initialization
 	void Start ()
     {
@@ -46,6 +47,15 @@ public class FixItem : MonoBehaviour {
                     grid.cellSize = size;
                 }
                 break;
+            case CheckType.doc:
+                {
+                    size.x = (width - grid.spacing.x * (column - 1)) / column;
+                    size.y = (height - grid.spacing.y * (row - 1)) / row;
+                    spacing.y = -95;
+                    grid.spacing = spacing;
+                    grid.cellSize = size;
+                }
+                break;
             default:
                 break;
         }
@@ -54,5 +64,6 @@ public class FixItem : MonoBehaviour {
 
 public enum CheckType {
     ngang = 0,
-    ngangdoc = 1
+    ngangdoc = 1,
+    doc = 2
 }

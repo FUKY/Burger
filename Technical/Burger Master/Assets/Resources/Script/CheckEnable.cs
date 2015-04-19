@@ -11,9 +11,11 @@ public class CheckEnable : MonoBehaviour {
     public GameObject itemEnable;
     public GameObject itemDisable;
     public GameObject transParent;
+    FixItem fixItem;
     // Use this for initialization
     void Start()
     {
+        fixItem = gameObject.GetComponent<FixItem>();
         Check();
     }
 
@@ -46,7 +48,6 @@ public class CheckEnable : MonoBehaviour {
             cucduocclick = FoodOrder.Instance.dictionary[index];
             trans = Instantiate(FoodOrder.Instance.dictionary[index], transform.position, Quaternion.identity) as GameObject;
             trans.transform.SetParent(transParent.transform);
-            Debug.Log(cucduocclick.name);
         }
     }
 }
