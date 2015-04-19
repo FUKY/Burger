@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
-public class FoodOrder : MonoBehaviour {
+public class FoodOrder : MonoSingleton<FoodOrder> {
 
-    public GameObject[] food = new GameObject[12];
+    public GameObject[] food = new GameObject[10];
     GameObject prefab;
-    PrefabScript prefabScript;
     public SortedDictionary<int, GameObject> dictionary;
     int indexOfList;
     public int indexOfMenu;
@@ -15,6 +15,7 @@ public class FoodOrder : MonoBehaviour {
     FixItem fix;
     public GameObject above;
     public GameObject below;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -36,7 +37,7 @@ public class FoodOrder : MonoBehaviour {
         for (int i = 0; i < food.Length; i++)
         {
             checkEnable = food[i].GetComponent<CheckEnable>();
-            if (checkEnable.isEnable && checkEnable.index != 1 && checkEnable.index != 12)
+            if (checkEnable.isEnable)
             {
                 prefab = Resources.Load<GameObject>("Prefab/Food/b_in" + checkEnable.index);
                 dictionary.Add(checkEnable.index, prefab);
@@ -51,14 +52,14 @@ public class FoodOrder : MonoBehaviour {
         tranformParent.transform.SetParent(foodTransform);
     }
 
-    void AboveInstantiate()
+    public void AboveInstantiate()
     {
         GameObject tranformParent;
         tranformParent = Instantiate(above, transform.position, Quaternion.identity) as GameObject;
         tranformParent.transform.SetParent(foodTransform);
     }
 
-    void BelowInstantiate()
+    public void BelowInstantiate()
     {
         GameObject tranformParent;
         tranformParent = Instantiate(below, transform.position, Quaternion.identity) as GameObject;
@@ -68,7 +69,7 @@ public class FoodOrder : MonoBehaviour {
     [ContextMenu("Random")]
     void RandomFood()
     {
-        indexOfMenu = Random.Range(3, (dictionary.Count > 6 ? 7: 6));
+        indexOfMenu = Random.Range(3, (dictionary.Count > 5 ? 7: 5));
         fix.row = indexOfMenu;
         AboveInstantiate();
         for (int i = 0; i < indexOfMenu - 2; i++)
@@ -81,7 +82,7 @@ public class FoodOrder : MonoBehaviour {
     int prevIndex = -1;
     void RandomMenu(int indexList)
     {
-        indexList = Random.Range(0, dictionary.Count);
+        indexList = Random.Range(1, dictionary.Count - 1);
         if (prevIndex == -1)
         {
             prevIndex = indexList;

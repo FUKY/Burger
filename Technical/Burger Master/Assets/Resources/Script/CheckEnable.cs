@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.UI;
 
 public class CheckEnable : MonoBehaviour {
 
@@ -7,6 +10,7 @@ public class CheckEnable : MonoBehaviour {
     public int index;
     public GameObject itemEnable;
     public GameObject itemDisable;
+    public GameObject transParent;
     // Use this for initialization
     void Start()
     {
@@ -30,6 +34,19 @@ public class CheckEnable : MonoBehaviour {
         {
             itemEnable.SetActive(true);
             itemDisable.SetActive(false);
+        }
+    }
+
+    public void FoodClick()
+    {
+        GameObject cucduocclick;
+        GameObject trans;
+        if (FoodOrder.Instance.dictionary.ContainsKey(index))
+        {
+            cucduocclick = FoodOrder.Instance.dictionary[index];
+            trans = Instantiate(FoodOrder.Instance.dictionary[index], transform.position, Quaternion.identity) as GameObject;
+            trans.transform.SetParent(transParent.transform);
+            Debug.Log(cucduocclick.name);
         }
     }
 }
