@@ -1,20 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class DrinkOrder : MonoBehaviour {
 
-    public List<GameObject> drinkList = new List<GameObject>();
     public GameObject[] drink = new GameObject[8];
-    public GameObject[] drinkAdd = new GameObject[8];
+    GameObject prefabDrink;
+    public SortedDictionary<int, GameObject> dictionaryDrink;
     public Transform drinkTransform;
     int indexOfMenu;
     int indexOfList;
+    public GameControl gameControl;
+    FixItem fixItem;
 	// Use this for initialization
 	void Start ()
     {
-	    
-	}
+        fixItem = gameObject.GetComponent<FixItem>();
+        dictionaryDrink = new SortedDictionary<int, GameObject>();
+        CheckActiveDrink();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -22,34 +27,42 @@ public class DrinkOrder : MonoBehaviour {
 	
 	}
 
-    void CheckActive()
+    void CheckActiveDrink()
     {
+        CheckEnable checkEnable = null;
         for (int i = 0; i < drink.Length; i++)
         {
-            if (drink[i].activeSelf)
+            checkEnable = drink[i].GetComponent<CheckEnable>();
+            if (checkEnable.isEnable)
             {
-                drinkList.Add(drinkAdd[i]);
+                prefabDrink = Resources.Load<GameObject>("Prefab/Drink/b_addin" + checkEnable.index);
+                Debug.Log(prefabDrink.name);
+                dictionaryDrink.Add(checkEnable.index, prefabDrink);
             }
         }
     }
 
-    void RandomItem(int i)
+    void RandomItemDictionaryDrink(int i)
     {
-        GameObject a;
-        a = Instantiate(drinkList[i], transform.position, Quaternion.identity) as GameObject;
-        a.transform.parent = drinkTransform;
+        GameObject trans;
+        trans = Instantiate(dictionaryDrink[dictionaryDrink.Keys.ElementAt(i)], transform.position, Quaternion.identity) as GameObject;
+        trans.transform.SetParent(drinkTransform);
     }
 
     [ContextMenu("Random")]
-    void RandomFood()
+    void RandomDrink()
     {
-        CheckActive();
-        indexOfMenu = Random.Range(3, 7);
-
+        indexOfMenu = Random.Range(0, 2);
+        fixItem.column = indexOfMenu;
         for (int i = 0; i < indexOfMenu; i++)
         {
-            indexOfList = Random.Range(0, drinkList.Count);
-            RandomItem(indexOfList);
+            if (indexOfMenu == 0)
+            {
+                gameControl.menuType = MenuType.food;
+                return;
+            }
+            indexOfList = Random.Range(0, dictionaryDrink.Count);
+            RandomItemDictionaryDrink(indexOfList);
         }
     }
 }

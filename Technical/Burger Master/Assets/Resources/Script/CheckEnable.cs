@@ -43,10 +43,10 @@ public class CheckEnable : MonoBehaviour {
     {
         GameObject cucduocclick;
         GameObject trans;
-        if (FoodOrder.Instance.dictionary.ContainsKey(index))
+        if (FoodOrder.Instance.dictionaryFood.ContainsKey(index))
         {
-            cucduocclick = FoodOrder.Instance.dictionary[index];
-            trans = Instantiate(FoodOrder.Instance.dictionary[index], transform.position, Quaternion.identity) as GameObject;
+            cucduocclick = FoodOrder.Instance.dictionaryFood[index];
+            trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
             trans.transform.SetParent(transParent.transform);
         }
     }
