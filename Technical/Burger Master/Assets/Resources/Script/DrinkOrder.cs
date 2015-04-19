@@ -56,11 +56,6 @@ public class DrinkOrder : MonoBehaviour {
         fixItem.column = indexOfMenu;
         for (int i = 0; i < indexOfMenu; i++)
         {
-            if (indexOfMenu == 0)
-            {
-                gameControl.menuType = MenuType.food;
-                return;
-            }
             indexOfList = Random.Range(0, dictionaryDrink.Count);
             RandomItemDictionaryDrink(indexOfList);
         }
