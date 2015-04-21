@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class DrinkOrder : MonoBehaviour {
+public class DrinkOrder : MonoSingleton<DrinkOrder> {
 
     public GameObject[] drink = new GameObject[8];
     GameObject prefabDrink;
@@ -36,7 +36,7 @@ public class DrinkOrder : MonoBehaviour {
             if (checkEnable.isEnable)
             {
                 prefabDrink = Resources.Load<GameObject>("Prefab/Drink/b_addin" + checkEnable.index);
-                Debug.Log(prefabDrink.name);
+                //Debug.Log(prefabDrink.name);
                 dictionaryDrink.Add(checkEnable.index, prefabDrink);
             }
         }
@@ -59,5 +59,6 @@ public class DrinkOrder : MonoBehaviour {
             indexOfList = Random.Range(0, dictionaryDrink.Count);
             RandomItemDictionaryDrink(indexOfList);
         }
+        fixItem.Fix();
     }
 }

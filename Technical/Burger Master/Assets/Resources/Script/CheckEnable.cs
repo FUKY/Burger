@@ -10,7 +10,8 @@ public class CheckEnable : MonoBehaviour {
     public int index;
     public GameObject itemEnable;
     public GameObject itemDisable;
-    public GameObject transParent;
+    public GameObject transParentFood;
+    public GameObject transParentDrink;
     FixItem fixItem;
     // Use this for initialization
     void Start()
@@ -45,9 +46,27 @@ public class CheckEnable : MonoBehaviour {
         GameObject trans;
         if (FoodOrder.Instance.dictionaryFood.ContainsKey(index))
         {
-            cucduocclick = FoodOrder.Instance.dictionaryFood[index];
-            trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
-            trans.transform.SetParent(transParent.transform);
+            if (true)
+            {
+                cucduocclick = FoodOrder.Instance.dictionaryFood[index];
+                trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
+                trans.transform.SetParent(transParentFood.transform);
+            }
+        }
+    }
+
+    public void DrinkClick()
+    {
+        GameObject cucduocclick;
+        GameObject trans;
+        if (DrinkOrder.Instance.dictionaryDrink.ContainsKey(index))
+        {
+            if (true)
+            {
+                cucduocclick = DrinkOrder.Instance.dictionaryDrink[index];
+                trans = Instantiate(DrinkOrder.Instance.dictionaryDrink[index], transform.position, Quaternion.identity) as GameObject;
+                trans.transform.SetParent(transParentDrink.transform);
+            }
         }
     }
 }

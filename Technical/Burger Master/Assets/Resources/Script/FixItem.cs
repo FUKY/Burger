@@ -12,7 +12,7 @@ public class FixItem : MonoBehaviour {
     public float width;
     public float height;
     Vector2 size;
-    public Vector2 spacing;
+    public Vector2 spacing = new Vector2(0.0f, 0.0f);
 	// Use this for initialization
 	void Start ()
     {
@@ -51,7 +51,6 @@ public class FixItem : MonoBehaviour {
                 {
                     size.x = (width - grid.spacing.x * (column - 1)) / column;
                     size.y = (height - grid.spacing.y * (row - 1)) / row;
-                    spacing.y = -95;
                     grid.spacing = spacing;
                     grid.cellSize = size;
                 }

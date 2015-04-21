@@ -9,6 +9,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     public GameObject[] food = new GameObject[10];
     GameObject prefabFood;
     public SortedDictionary<int, GameObject> dictionaryFood;
+    public List<int> listKeys;
     int indexOfList;
     public int indexOfMenu;
     public Transform foodTransform;
@@ -34,6 +35,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     //Cai ham checkActive nos goi truoc ham start cua thang nay luon
     void CheckActiveFood()
     {
+        
         CheckEnable checkEnable = null; //Như a nói, index của item em đặt giống của prefab, đặt khác là sai :D :D
         for (int i = 0; i < food.Length; i++)
         {
@@ -70,14 +72,21 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     [ContextMenu("Random")]
     void RandomFood()
     {
-        indexOfMenu = Random.Range(3, (dictionaryFood.Count > 5 ? 7: 5));
-        fix.row = indexOfMenu;
+        indexOfMenu = 5;// = Random.Range(3, (dictionaryFood.Count > 5 ? 7: 5));
         AboveInstantiate();
+        listKeys.Add(1);
         for (int i = 0; i < indexOfMenu - 2; i++)
         {
             RandomMenu(indexOfList);
+            Debug.Log(dictionaryFood.ElementAt(indexOfList).Key);
+            //listKeys.Add(dictionaryFood.ElementAt(indexOfList).Key);
         }
         BelowInstantiate();
+        listKeys.Add(12);
+        //foreach (int key in listKeys)
+        //{
+        //    Debug.Log(key);
+        //}
         fix.Fix();
     }
     
@@ -97,7 +106,6 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
         else
         {
             RandomMenu(indexList);
-            //prevIndex = indexOfList;
         }
     }
 }
