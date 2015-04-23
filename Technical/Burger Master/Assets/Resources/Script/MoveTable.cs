@@ -3,8 +3,9 @@ using System.Collections;
 
 public class MoveTable : MonoBehaviour {
 
-    public bool isDone = false;
-    public Transform newTransform;
+    public bool isDone;
+    public Transform newTransformLeft;
+    public Transform newTransformRight;
 	// Use this for initialization
 	void Start ()
     {
@@ -14,15 +15,9 @@ public class MoveTable : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (isDone)
+        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Cancel"))
         {
-            Move();
+            Debug.Log("Thành công");
         }
 	}
-
-    [ContextMenu("Move")]
-    void Move()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, newTransform.position, 10.0f);
-    }
 }

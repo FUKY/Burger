@@ -47,14 +47,6 @@ public class FixItem : MonoBehaviour {
                     grid.cellSize = size;
                 }
                 break;
-            case CheckType.doc:
-                {
-                    size.x = (width - grid.spacing.x * (column - 1)) / column;
-                    size.y = (height - grid.spacing.y * (row - 1)) / row;
-                    grid.spacing = spacing;
-                    grid.cellSize = size;
-                }
-                break;
             default:
                 break;
         }
@@ -63,6 +55,5 @@ public class FixItem : MonoBehaviour {
 
 public enum CheckType {
     ngang = 0,
-    ngangdoc = 1,
-    doc = 2
+    ngangdoc = 1
 }

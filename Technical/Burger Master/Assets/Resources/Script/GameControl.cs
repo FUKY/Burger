@@ -4,35 +4,63 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 
-public class GameControl : MonoBehaviour {
+public class GameControl : MonoSingleton<GameControl> {
 
-    public MenuType menuType;
+    public bool isDone = true;
+    MenuType menuType;
     public GameObject food;
     public GameObject drink;
-    public GridLayoutGroup gridOrder;
+    int foodCount, drinkCount;
 
-    public GridLayoutGroup gridFood;
     CheckEnable checkEnable;
     FoodOrder foodOrder;
+    DrinkOrder drinkOrder;
     FixItem fixItem;
-    public GameObject transParent;
-    public GameObject above;
-    public GameObject below;
+    public int numCheck;
+
     // Use this for initialization
 	void Start () {
-        gridOrder = gameObject.GetComponent<GridLayoutGroup>();
         checkEnable = gameObject.GetComponent<CheckEnable>(); //Sao e ko truyen tham chieu
         foodOrder = gameObject.GetComponent<FoodOrder>();
+        drinkOrder = gameObject.GetComponent<DrinkOrder>();
         fixItem = gameObject.GetComponent<FixItem>();
+        menuType = CheckType();
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+    {
+        //if (isDone == true)
+        //{
+        //    FoodOrder.Instance.isRand = false;
+        //    DrinkOrder.Instance.isRand = false;
+        //    CheckMenuType(menuType = CheckType());
+        //    FoodOrder.Instance.RandomFood();
+        //    DrinkOrder.Instance.RandomDrink();
+        //    isDone = false;
+        //}
 	}
 
+    public bool CheckRight(int index)
+    {
+        if (numCheck >= 0)
+        {
+            if (index == FoodOrder.Instance.listCheck[numCheck])
+            {
+                numCheck--;
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            Debug.Log("Win");
+            return false;
+        }
+    }
+
     [ContextMenu("Check")]
-    void CheckMenuType()
+    void CheckMenuType(MenuType menuType)
     {
         switch (menuType)
         {
@@ -40,7 +68,6 @@ public class GameControl : MonoBehaviour {
                 {
                     food.SetActive(true);
                     drink.SetActive(false);
-                    gridOrder.constraintCount = 1;
                 }
                 break;
             case MenuType.foodDrink:
@@ -53,11 +80,26 @@ public class GameControl : MonoBehaviour {
                 {
                     food.SetActive(false);
                     drink.SetActive(true);
-                    gridOrder.constraintCount = 1;
                 }
                 break;
             default:
                 break;
+        }
+    }
+
+    MenuType CheckType()
+    {
+        if (FoodOrder.Instance.indexOfMenu == 0)
+        {
+            return MenuType.drink;
+        }
+        else if (DrinkOrder.Instance.indexOfMenu == 0)
+        {
+            return MenuType.food;
+        }
+        else
+        {
+            return MenuType.foodDrink;
         }
     }
 }

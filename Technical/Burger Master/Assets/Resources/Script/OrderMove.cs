@@ -3,8 +3,10 @@ using System.Collections;
 
 public class OrderMove : MonoBehaviour {
 
-    public Transform newTransform;
+    public Transform newTransformLeft;
+    public Transform newTransformRight;
     Rigidbody2D rigidbody2D;
+    public bool isMove = false;
 	// Use this for initialization
 	void Start ()
     {
@@ -14,11 +16,21 @@ public class OrderMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
+        if (isMove == true)
+        {
+            MoveLeft();
+            isMove = false;
+        }
+        MoveRight();
 	}
 
-    void Move()
+    void MoveLeft()
     {
-        transform.position = Vector3.MoveTowards(transform.position, newTransform.position, 10.0f);
+        transform.position = Vector3.MoveTowards(transform.position, newTransformLeft.position, 10.0f);
+    }
+
+    void MoveRight()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, newTransformRight.position, 10.0f);
     }
 }

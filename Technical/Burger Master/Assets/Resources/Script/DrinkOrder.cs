@@ -9,10 +9,11 @@ public class DrinkOrder : MonoSingleton<DrinkOrder> {
     GameObject prefabDrink;
     public SortedDictionary<int, GameObject> dictionaryDrink;
     public Transform drinkTransform;
-    int indexOfMenu;
+    public int indexOfMenu;
     int indexOfList;
     public GameControl gameControl;
     FixItem fixItem;
+    public bool isRand = true;
 	// Use this for initialization
 	void Start ()
     {
@@ -24,7 +25,11 @@ public class DrinkOrder : MonoSingleton<DrinkOrder> {
 	// Update is called once per frame
 	void Update ()
     {
-	
+        if (isRand == false)
+        {
+            indexOfMenu = Random.Range(0, 2);
+            isRand = true;
+        }
 	}
 
     void CheckActiveDrink()
@@ -36,7 +41,6 @@ public class DrinkOrder : MonoSingleton<DrinkOrder> {
             if (checkEnable.isEnable)
             {
                 prefabDrink = Resources.Load<GameObject>("Prefab/Drink/b_addin" + checkEnable.index);
-                //Debug.Log(prefabDrink.name);
                 dictionaryDrink.Add(checkEnable.index, prefabDrink);
             }
         }
@@ -50,10 +54,9 @@ public class DrinkOrder : MonoSingleton<DrinkOrder> {
     }
 
     [ContextMenu("Random")]
-    void RandomDrink()
+    public void RandomDrink()
     {
-        indexOfMenu = Random.Range(0, 2);
-        fixItem.column = indexOfMenu;
+        fixItem.row = indexOfMenu;
         for (int i = 0; i < indexOfMenu; i++)
         {
             indexOfList = Random.Range(0, dictionaryDrink.Count);

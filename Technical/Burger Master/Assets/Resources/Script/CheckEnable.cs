@@ -13,6 +13,7 @@ public class CheckEnable : MonoBehaviour {
     public GameObject transParentFood;
     public GameObject transParentDrink;
     FixItem fixItem;
+    int numCheck;
     // Use this for initialization
     void Start()
     {
@@ -46,11 +47,12 @@ public class CheckEnable : MonoBehaviour {
         GameObject trans;
         if (FoodOrder.Instance.dictionaryFood.ContainsKey(index))
         {
-            if (true)
+            if (GameControl.Instance.CheckRight(index))
             {
                 cucduocclick = FoodOrder.Instance.dictionaryFood[index];
                 trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
                 trans.transform.SetParent(transParentFood.transform);
+                numCheck--;
             }
         }
     }

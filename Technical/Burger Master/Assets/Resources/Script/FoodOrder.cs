@@ -9,7 +9,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     public GameObject[] food = new GameObject[10];
     GameObject prefabFood;
     public SortedDictionary<int, GameObject> dictionaryFood;
-    public List<int> listKeys;
+    public List<int> listCheck;
     int indexOfList;
     public int indexOfMenu;
     public Transform foodTransform;
@@ -17,10 +17,11 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     public GameObject above;
     public GameObject below;
     int prevIndex = -1;
-
+    public bool isRand = true;
 	// Use this for initialization
 	void Start ()
     {
+        listCheck = new List<int>();
         fix = gameObject.GetComponent<FixItem>();
         dictionaryFood = new SortedDictionary<int, GameObject>();
         CheckActiveFood();
@@ -29,7 +30,11 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
 	// Update is called once per frame
 	void Update ()
     {
-	
+        if (isRand == false)
+        {
+            indexOfMenu = 4; // Random.Range(3, (dictionaryFood.Count > 5 ? 5 : 7));
+            isRand = true;
+        }
 	}
 
     //Cai ham checkActive nos goi truoc ham start cua thang nay luon
@@ -70,27 +75,22 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     }
 
     [ContextMenu("Random")]
-    void RandomFood()
+    public void RandomFood()
     {
-        indexOfMenu = 5;// = Random.Range(3, (dictionaryFood.Count > 5 ? 7: 5));
         AboveInstantiate();
-        listKeys.Add(1);
+        listCheck.Add(above.GetComponent<PrefabScript>().index);
         for (int i = 0; i < indexOfMenu - 2; i++)
         {
-            RandomMenu(indexOfList);
-            Debug.Log(dictionaryFood.ElementAt(indexOfList).Key);
-            //listKeys.Add(dictionaryFood.ElementAt(indexOfList).Key);
+            RandomMenu(ref indexOfList);
+            listCheck.Add(dictionaryFood.ElementAt(indexOfList).Key);
         }
         BelowInstantiate();
-        listKeys.Add(12);
-        //foreach (int key in listKeys)
-        //{
-        //    Debug.Log(key);
-        //}
+        listCheck.Add(below.GetComponent<PrefabScript>().index);
+        GameControl.Instance.numCheck = listCheck.Count - 1;
         fix.Fix();
     }
-    
-    void RandomMenu(int indexList)
+
+    void RandomMenu(ref int indexList)
     {
         indexList = Random.Range(1, dictionaryFood.Count - 1);
         if (prevIndex == -1)
@@ -105,7 +105,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
         }
         else
         {
-            RandomMenu(indexList);
+            RandomMenu(ref indexList);
         }
     }
 }
