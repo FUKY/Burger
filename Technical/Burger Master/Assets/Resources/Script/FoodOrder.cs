@@ -87,7 +87,6 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
         BelowInstantiate();
         listCheck.Add(below.GetComponent<PrefabScript>().index);
         GameControl.Instance.numCheck = listCheck.Count - 1;
-        fix.Fix();
     }
 
     void RandomMenu(ref int indexList)
