@@ -13,7 +13,7 @@ public class GameControl : MonoSingleton<GameControl> {
     int foodCount, drinkCount;
 
     CheckEnable checkEnable;
-    FoodOrder foodOrder;
+    //FoodOrder foodOrder;
     DrinkOrder drinkOrder;
     FixItem fixItem;
     public int numCheck;
@@ -21,7 +21,7 @@ public class GameControl : MonoSingleton<GameControl> {
     // Use this for initialization
 	void Start () {
         checkEnable = gameObject.GetComponent<CheckEnable>();
-        foodOrder = gameObject.GetComponent<FoodOrder>();
+        //foodOrder = gameObject.GetComponent<FoodOrder>();
         drinkOrder = gameObject.GetComponent<DrinkOrder>();
         fixItem = gameObject.GetComponent<FixItem>();
         menuType = CheckType();
@@ -45,7 +45,7 @@ public class GameControl : MonoSingleton<GameControl> {
     {
         if (numCheck >= 0)
         {
-            if (index == FoodOrder.Instance.listCheck[numCheck])
+           // if (index == FoodOrder.Instance.listCheck[numCheck])
             {
                 numCheck--;
                 return true;

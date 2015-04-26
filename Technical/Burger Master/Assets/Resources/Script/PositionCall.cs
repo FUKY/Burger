@@ -4,12 +4,12 @@ using System.Collections;
 public class PositionCall : MonoBehaviour {
 
     FixItem fix;
-    FoodOrder foodOrder;
+    //FoodOrder foodOrder;
 	// Use this for initialization
 	void Start ()
     {
         fix = gameObject.GetComponent<FixItem>();
-        foodOrder = gameObject.GetComponent<FoodOrder>();
+        // = gameObject.GetComponent<FoodOrder>();
 	}
 	
 	// Update is called once per frame
@@ -20,6 +20,6 @@ public class PositionCall : MonoBehaviour {
 
     void Test()
     {
-        fix.row = foodOrder.indexOfMenu;
+        fix.row = FoodOrder.Instance.indexOfMenu;
     }
 }
