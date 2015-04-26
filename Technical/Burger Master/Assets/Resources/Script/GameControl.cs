@@ -25,6 +25,8 @@ public class GameControl : MonoSingleton<GameControl> {
         drinkOrder = gameObject.GetComponent<DrinkOrder>();
         fixItem = gameObject.GetComponent<FixItem>();
         menuType = CheckType();
+        //float height = RectExtension.GetHeight((RectTransform)transform);
+        //Debug.Log(System.String.Format("Height of order menu = {0}", height));
     }
 	
 	// Update is called once per frame

@@ -45,7 +45,6 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     //Cai ham checkActive nos goi truoc ham start cua thang nay luon
     void CheckActiveFood()
     {
-        Debug.Log(rectSize.sizeDelta);
         CheckEnable checkEnable = null; //Như a nói, index của item em đặt giống của prefab, đặt khác là sai :D :D
         for (int i = 0; i < food.Length; i++)
         {
@@ -53,7 +52,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
             if (checkEnable.isEnable)
             {
                 prefabFood = Resources.Load<GameObject>("Prefab/Food/b_in" + checkEnable.index);
-                Resize(ref prefabFood, ref currentSize, ref newSize);
+                Resize(ref prefabFood, ref currentSize, ref newSize);                
                 dictionaryFood.Add(checkEnable.index, prefabFood);
             }
         }
@@ -63,15 +62,16 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     {
         float ratio;
         curSize = gObject.GetComponent<RectTransform>().rect.size;
-        ratio = curSize.x / rectSize.GetWidth();
-        
-        
+        ratio = curSize.x / ((rectSize.GetWidth() / 2) * 0.8f);
+        newCurSize.x = rectSize.GetWidth();
+        newCurSize.y = currentSize.y / ratio;
     }
 
     void RandomItemDictionaryFood(int i)
     {
         GameObject tranformParent;
         tranformParent = Instantiate(dictionaryFood[dictionaryFood.Keys.ElementAt(i)], transform.position, Quaternion.identity) as GameObject;
+        RectExtension.SetSize(prefabFood.GetComponent<RectTransform>(), newSize);
         tranformParent.transform.SetParent(foodTransform);
     }
 
@@ -79,6 +79,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     {
         GameObject tranformParent;
         tranformParent = Instantiate(above, transform.position, Quaternion.identity) as GameObject;
+        RectExtension.SetSize(prefabFood.GetComponent<RectTransform>(), newSize);
         tranformParent.transform.SetParent(foodTransform);
     }
 
@@ -86,6 +87,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     {
         GameObject tranformParent;
         tranformParent = Instantiate(below, transform.position, Quaternion.identity) as GameObject;
+        RectExtension.SetSize(prefabFood.GetComponent<RectTransform>(), newSize);
         tranformParent.transform.SetParent(foodTransform);
     }
 
