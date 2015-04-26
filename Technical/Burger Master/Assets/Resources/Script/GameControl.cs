@@ -20,7 +20,7 @@ public class GameControl : MonoSingleton<GameControl> {
 
     // Use this for initialization
 	void Start () {
-        checkEnable = gameObject.GetComponent<CheckEnable>(); //Sao e ko truyen tham chieu
+        checkEnable = gameObject.GetComponent<CheckEnable>();
         foodOrder = gameObject.GetComponent<FoodOrder>();
         drinkOrder = gameObject.GetComponent<DrinkOrder>();
         fixItem = gameObject.GetComponent<FixItem>();
