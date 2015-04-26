@@ -18,7 +18,11 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     int prevIndex = -1;
     public bool isRand = true;
 
-    public RectTransform rectSize;
+    public RectTransform rectSize; //Size của cái gameobject
+    public Vector2 newSize; //Size mới của cục thức ăn
+    public Vector2 currentSize; //Size hiện tại của cục thức ăn
+    float ratio;
+
     // Use this for initialization
     void Start()
     {
@@ -41,7 +45,7 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
     //Cai ham checkActive nos goi truoc ham start cua thang nay luon
     void CheckActiveFood()
     {
-
+        Debug.Log(rectSize.sizeDelta);
         CheckEnable checkEnable = null; //Như a nói, index của item em đặt giống của prefab, đặt khác là sai :D :D
         for (int i = 0; i < food.Length; i++)
         {
@@ -49,9 +53,19 @@ public class FoodOrder : MonoSingleton<FoodOrder> {
             if (checkEnable.isEnable)
             {
                 prefabFood = Resources.Load<GameObject>("Prefab/Food/b_in" + checkEnable.index);
+                Resize(ref prefabFood, ref currentSize, ref newSize);
                 dictionaryFood.Add(checkEnable.index, prefabFood);
             }
         }
+    }
+
+    void Resize(ref GameObject gObject, ref Vector2 curSize, ref Vector2 newCurSize)
+    {
+        float ratio;
+        curSize = gObject.GetComponent<RectTransform>().rect.size;
+        ratio = curSize.x / rectSize.GetWidth();
+        
+        
     }
 
     void RandomItemDictionaryFood(int i)

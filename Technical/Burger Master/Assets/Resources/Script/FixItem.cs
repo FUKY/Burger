@@ -12,7 +12,6 @@ public class FixItem : MonoBehaviour {
     public float width;
     public float height;
     Vector2 size;
-    public Vector2 spacing = new Vector2(0.0f, 0.0f);
 	// Use this for initialization
 	void Start ()
     {
