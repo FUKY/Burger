@@ -91,18 +91,19 @@ public class GameControl : MonoSingleton<GameControl> {
 
     MenuType CheckType()
     {
-        if (FoodOrder.Instance.indexOfMenu == 0)
-        {
-            return MenuType.drink;
-        }
-        else if (DrinkOrder.Instance.indexOfMenu == 0)
-        {
-            return MenuType.food;
-        }
-        else
-        {
-            return MenuType.foodDrink;
-        }
+        //if (FoodOrder.Instance.indexOfMenu == 0)
+        //{
+        //    return MenuType.drink;
+        //}
+        //else if (DrinkOrder.Instance.indexOfMenu == 0)
+        //{
+        //    return MenuType.food;
+        //}
+        //else
+        //{
+        //    return MenuType.foodDrink;
+        //}
+        return menuType;
     }
 }
 

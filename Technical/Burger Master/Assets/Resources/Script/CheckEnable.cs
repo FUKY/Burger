@@ -26,7 +26,7 @@ public class CheckEnable : MonoBehaviour {
     {
         
     }
-    [ContextMenu("Check")]
+
     void Check()
     {
         if (!isEnable)
@@ -45,16 +45,16 @@ public class CheckEnable : MonoBehaviour {
     {
         GameObject cucduocclick;
         GameObject trans;
-        if (FoodOrder.Instance.dictionaryFood.ContainsKey(index))
-        {
-            //if (GameControl.Instance.CheckRight(index))
-            //{
-                cucduocclick = FoodOrder.Instance.dictionaryFood[index];
-                trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
-                trans.transform.SetParent(transParentFood.transform);
-                //numCheck--;
-            //}
-        }
+        //if (FoodOrder.Instance.dictionaryFood.ContainsKey(index))
+        //{
+        //    //if (GameControl.Instance.CheckRight(index))
+        //    //{
+        //        cucduocclick = FoodOrder.Instance.dictionaryFood[index];
+        //        trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
+        //        trans.transform.SetParent(transParentFood.transform);
+        //        //numCheck--;
+        //    //}
+        //}
     }
 
     public void DrinkClick()
