@@ -42,10 +42,13 @@ public class GameControl : MonoSingleton<GameControl> {
     {
         if (numCheck < FoodOrder.Instance.listCheck.Count)
         {
-            if (index == FoodOrder.Instance.listPrefab[numCheck].GetComponent<PrefabScript>().index)
+            for (int i = 0; i < FoodOrder.Instance.listPrefab.Count; i++)
             {
-                numCheck++;
-                return true;
+                if (index == FoodOrder.Instance.listPrefab[i].GetComponent<PrefabScript>().index)
+                {
+                    numCheck++;
+                    return true;
+                }
             }
             return false;
         }

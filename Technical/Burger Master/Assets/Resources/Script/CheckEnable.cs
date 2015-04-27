@@ -13,7 +13,7 @@ public class CheckEnable : MonoBehaviour {
     public GameObject transParentFood;
     public GameObject transParentDrink;
     FixItem fixItem;
-    int numCheck;
+    int numCheck = 0;
     // Use this for initialization
     void Start()
     {
@@ -43,17 +43,20 @@ public class CheckEnable : MonoBehaviour {
 
     public void FoodClick()
     {
-        GameObject cucduocclick;
         GameObject trans;
         if (index == FoodOrder.Instance.listCheck[numCheck].GetComponent<PrefabScript>().index) //Kiểm tra index của cục được click với index của item bên trong listCheck
         {
             if (GameControl.Instance.CheckRight(index))
             {
-                Debug.Log(FoodOrder.Instance.listPrefab[numCheck].GetComponent<PrefabScript>().index);
-                cucduocclick = FoodOrder.Instance.listPrefab[numCheck];
-                trans = Instantiate(FoodOrder.Instance.listPrefab[numCheck], transform.position, Quaternion.identity) as GameObject;
-                trans.transform.SetParent(transParentFood.transform);
-                numCheck++;
+                for (int i = 0; i < FoodOrder.Instance.listPrefab.Count; i++)
+                {
+                    if (FoodOrder.Instance.listPrefab[i].GetComponent<PrefabScript>().index == index)
+                    {
+                        trans = Instantiate(FoodOrder.Instance.listPrefab[i], transform.position, Quaternion.identity) as GameObject;
+                        trans.transform.SetParent(transParentFood.transform);
+                        numCheck++;
+                    }
+                }
             }
         }
     }
