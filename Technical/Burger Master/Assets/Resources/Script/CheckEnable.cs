@@ -45,16 +45,17 @@ public class CheckEnable : MonoBehaviour {
     {
         GameObject cucduocclick;
         GameObject trans;
-        //if (FoodOrder.Instance.dictionaryFood.ContainsKey(index))
-        //{
-        //    //if (GameControl.Instance.CheckRight(index))
-        //    //{
-        //        cucduocclick = FoodOrder.Instance.dictionaryFood[index];
-        //        trans = Instantiate(FoodOrder.Instance.dictionaryFood[index], transform.position, Quaternion.identity) as GameObject;
-        //        trans.transform.SetParent(transParentFood.transform);
-        //        //numCheck--;
-        //    //}
-        //}
+        if (index == FoodOrder.Instance.listCheck[numCheck].GetComponent<PrefabScript>().index) //Kiểm tra index của cục được click với index của item bên trong listCheck
+        {
+            if (GameControl.Instance.CheckRight(index))
+            {
+                Debug.Log(FoodOrder.Instance.listPrefab[numCheck].GetComponent<PrefabScript>().index);
+                cucduocclick = FoodOrder.Instance.listPrefab[numCheck];
+                trans = Instantiate(FoodOrder.Instance.listPrefab[numCheck], transform.position, Quaternion.identity) as GameObject;
+                trans.transform.SetParent(transParentFood.transform);
+                numCheck++;
+            }
+        }
     }
 
     public void DrinkClick()

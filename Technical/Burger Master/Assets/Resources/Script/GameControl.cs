@@ -13,20 +13,15 @@ public class GameControl : MonoSingleton<GameControl> {
     int foodCount, drinkCount;
 
     CheckEnable checkEnable;
-    //FoodOrder foodOrder;
     DrinkOrder drinkOrder;
     FixItem fixItem;
-    public int numCheck;
+    public int numCheck = 0;
 
     // Use this for initialization
 	void Start () {
         checkEnable = gameObject.GetComponent<CheckEnable>();
-        //foodOrder = gameObject.GetComponent<FoodOrder>();
         drinkOrder = gameObject.GetComponent<DrinkOrder>();
         fixItem = gameObject.GetComponent<FixItem>();
-        menuType = CheckType();
-        //float height = RectExtension.GetHeight((RectTransform)transform);
-        //Debug.Log(System.String.Format("Height of order menu = {0}", height));
     }
 	
 	// Update is called once per frame
@@ -45,11 +40,11 @@ public class GameControl : MonoSingleton<GameControl> {
 
     public bool CheckRight(int index)
     {
-        if (numCheck >= 0)
+        if (numCheck < FoodOrder.Instance.listCheck.Count)
         {
-           // if (index == FoodOrder.Instance.listCheck[numCheck])
+            if (index == FoodOrder.Instance.listPrefab[numCheck].GetComponent<PrefabScript>().index)
             {
-                numCheck--;
+                numCheck++;
                 return true;
             }
             return false;
@@ -87,23 +82,6 @@ public class GameControl : MonoSingleton<GameControl> {
             default:
                 break;
         }
-    }
-
-    MenuType CheckType()
-    {
-        //if (FoodOrder.Instance.indexOfMenu == 0)
-        //{
-        //    return MenuType.drink;
-        //}
-        //else if (DrinkOrder.Instance.indexOfMenu == 0)
-        //{
-        //    return MenuType.food;
-        //}
-        //else
-        //{
-        //    return MenuType.foodDrink;
-        //}
-        return menuType;
     }
 }
 

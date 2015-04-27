@@ -5,17 +5,18 @@ using System.Linq;
 
 public class FoodOrder : MonoSingleton<FoodOrder> 
 {
-    public List<GameObject> foodItem = new List<GameObject>();
+    public List<GameObject> foodItem = new List<GameObject>(); //List chứa các item bên dưới
     List<int> listIndex = new List<int>(); //List chứa các index của các prefab
-    public List<GameObject> listPrefab = new List<GameObject>();
+    public List<GameObject> listPrefab = new List<GameObject>(); //List chứa tất cả các prefab
+    public List<GameObject> listCheck = new List<GameObject>(); //List chứa các index của các item đã được random trên menu
 
     public GameObject parentTrans;
     public GameObject scaleParent;
     void Start()
     {
         CheckActive();
-        Debug.Log("scaleParent: " + scaleParent.GetComponent<RectTransform>().rect.size);
     }
+
     void CheckActive()
     {
         CheckEnable checkEnable = null;
@@ -25,7 +26,6 @@ public class FoodOrder : MonoSingleton<FoodOrder>
             if (checkEnable.isEnable)
             {
                 listIndex.Add(checkEnable.index);
-                Debug.Log(checkEnable.index);
             }
         }
     }
@@ -36,7 +36,6 @@ public class FoodOrder : MonoSingleton<FoodOrder>
         trans = Instantiate(gObject, transform.position, Quaternion.identity) as GameObject;
         RectExtension.SetSize(trans.GetComponent<RectTransform>(), Resize(ref gObject));
         trans.transform.SetParent(parentTrans.transform);
-        
     }
 
     [ContextMenu("Test")]
@@ -46,7 +45,8 @@ public class FoodOrder : MonoSingleton<FoodOrder>
         for (int i = 0; i < indexOfMenu; i++)
         {
             int indexOfList = Random.Range(0, listIndex.Count);
-            Instan(listPrefab[indexOfList]);
+            Instan(listPrefab[listIndex[indexOfList] - 1]);
+            listCheck.Add(listPrefab[listIndex[indexOfList] - 1]);
         }
     }
 
@@ -55,11 +55,9 @@ public class FoodOrder : MonoSingleton<FoodOrder>
         Vector2 curSize, newSize;
         float width = scaleParent.GetComponent<RectTransform>().rect.width / 2 * 0.8f;
         curSize = gObject.GetComponent<RectTransform>().rect.size;
-        Debug.Log("curSize: " + curSize);
         float ratio = curSize.x / width;
         newSize.x = width;
         newSize.y = curSize.y / ratio;
-        Debug.Log("newSize: " + newSize);
         return newSize;
     }
 }
