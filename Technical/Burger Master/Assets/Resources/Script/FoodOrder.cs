@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class FoodOrder : MonoSingleton<FoodOrder> 
 {
@@ -12,6 +13,7 @@ public class FoodOrder : MonoSingleton<FoodOrder>
 
     public GameObject parentTrans;
     public GameObject scaleParent;
+    public GridLayoutGroup grid;
     void Start()
     {
         CheckActive();
@@ -41,13 +43,18 @@ public class FoodOrder : MonoSingleton<FoodOrder>
     [ContextMenu("Test")]
     void RandomItem()
     {
-        int indexOfMenu = Random.Range(3, 7);
+        
+        int prev = -1;
+        int indexOfMenu = Random.Range(1, 5);
+        Instan(listPrefab[0]);
         for (int i = 0; i < indexOfMenu; i++)
         {
-            int indexOfList = Random.Range(0, listIndex.Count);
+            int indexOfList = Random.Range(1, listIndex.Count) - prev;
             Instan(listPrefab[listIndex[indexOfList] - 1]);
             listCheck.Add(listPrefab[listIndex[indexOfList] - 1]);
+            prev = indexOfList;
         }
+        Instan(listPrefab[11]);
     }
 
     Vector2 Resize(ref GameObject gObject)
