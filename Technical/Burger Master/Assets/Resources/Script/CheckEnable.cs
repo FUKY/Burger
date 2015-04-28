@@ -48,15 +48,9 @@ public class CheckEnable : MonoBehaviour {
         {
             if (GameControl.Instance.CheckRight(index))
             {
-                for (int i = 0; i < FoodOrder.Instance.listPrefab.Count; i++)
-                {
-                    if (FoodOrder.Instance.listPrefab[i].GetComponent<PrefabScript>().index == index)
-                    {
-                        trans = Instantiate(FoodOrder.Instance.listPrefab[i], transform.position, Quaternion.identity) as GameObject;
-                        trans.transform.SetParent(transParentFood.transform);
-                        numCheck++;
-                    }
-                }
+                trans = Instantiate(FoodOrder.Instance.listPrefab[index - 1], transform.position, Quaternion.identity) as GameObject;
+                trans.transform.SetParent(transParentFood.transform);
+                numCheck--;
             }
         }
     }

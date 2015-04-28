@@ -15,13 +15,14 @@ public class GameControl : MonoSingleton<GameControl> {
     CheckEnable checkEnable;
     DrinkOrder drinkOrder;
     FixItem fixItem;
-    public int numCheck = 0;
+    public int numCheck;
 
     // Use this for initialization
 	void Start () {
         checkEnable = gameObject.GetComponent<CheckEnable>();
         drinkOrder = gameObject.GetComponent<DrinkOrder>();
         fixItem = gameObject.GetComponent<FixItem>();
+        numCheck = FoodOrder.Instance.listCheck.Count;
     }
 	
 	// Update is called once per frame
@@ -40,13 +41,13 @@ public class GameControl : MonoSingleton<GameControl> {
 
     public bool CheckRight(int index)
     {
-        if (numCheck < FoodOrder.Instance.listCheck.Count)
+        if (numCheck > 0)
         {
             for (int i = 0; i < FoodOrder.Instance.listPrefab.Count; i++)
             {
                 if (index == FoodOrder.Instance.listPrefab[i].GetComponent<PrefabScript>().index)
                 {
-                    numCheck++;
+                    numCheck--;
                     return true;
                 }
             }

@@ -6,11 +6,8 @@ public class FixItem : MonoBehaviour {
 
     public int column = 1;
     public int row = 1;
-    //public int rowMenu;
     public GridLayoutGroup grid;
     public CheckType type;
-    public float width;
-    public float height;
     Vector2 size;
 	// Use this for initialization
 	void Start ()
@@ -28,8 +25,8 @@ public class FixItem : MonoBehaviour {
     [ContextMenu("Fix")]
     public void Fix()
     {
-        width = gameObject.GetComponent<RectTransform>().rect.width;
-        height = gameObject.GetComponent<RectTransform>().rect.height;
+        float width = gameObject.GetComponent<RectTransform>().rect.width;
+        float height = gameObject.GetComponent<RectTransform>().rect.height;
         switch (type)
         {
             case CheckType.ngang:

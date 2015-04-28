@@ -43,18 +43,19 @@ public class FoodOrder : MonoSingleton<FoodOrder>
     [ContextMenu("Test")]
     void RandomItem()
     {
-        
         int prev = -1;
         int indexOfMenu = Random.Range(1, 5);
         Instan(listPrefab[0]);
+        listCheck.Add(listPrefab[0]);
         for (int i = 0; i < indexOfMenu; i++)
         {
-            int indexOfList = Random.Range(1, listIndex.Count) - prev;
+            int indexOfList = Random.Range(1, listIndex.Count) - prev; //
             Instan(listPrefab[listIndex[indexOfList] - 1]);
             listCheck.Add(listPrefab[listIndex[indexOfList] - 1]);
             prev = indexOfList;
         }
         Instan(listPrefab[11]);
+        listCheck.Add(listPrefab[11]);
     }
 
     Vector2 Resize(ref GameObject gObject)
