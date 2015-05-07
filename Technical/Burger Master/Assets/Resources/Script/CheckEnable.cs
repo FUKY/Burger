@@ -27,6 +27,12 @@ public class CheckEnable : MonoBehaviour {
         
     }
 
+    public void SetEnable(bool _isEnable) 
+    {
+        isEnable = _isEnable;
+        Check();
+    }
+
     void Check()
     {
         if (!isEnable)

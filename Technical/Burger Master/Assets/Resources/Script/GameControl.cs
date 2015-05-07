@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class GameControl : MonoSingleton<GameControl> {
 
     public bool isDone = true;
-    MenuType menuType;
     public GameObject food;
     public GameObject drink;
     int foodCount, drinkCount;
@@ -61,23 +60,23 @@ public class GameControl : MonoSingleton<GameControl> {
     }
 
     [ContextMenu("Check")]
-    void CheckMenuType(MenuType menuType)
+    void ActiveMenuType(TypeOrder menuType)
     {
         switch (menuType)
         {
-            case MenuType.food:
+            case TypeOrder.NONE:
                 {
                     food.SetActive(true);
                     drink.SetActive(false);
                 }
                 break;
-            case MenuType.foodDrink:
+            case TypeOrder.FOOD:
                 {
                     food.SetActive(true);
                     drink.SetActive(true);
                 }
                 break;
-            case MenuType.drink:
+            case TypeOrder.DRINK:
                 {
                     food.SetActive(false);
                     drink.SetActive(true);
@@ -87,11 +86,4 @@ public class GameControl : MonoSingleton<GameControl> {
                 break;
         }
     }
-}
-
-public enum MenuType
-{
-    food = 0,
-    foodDrink = 1,
-    drink = 2
 }
