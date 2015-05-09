@@ -60,8 +60,7 @@ public class GameController : MonoBehaviour {
 
     public void ShowOrder() 
     {
-        int rand = Random.Range(0, 3);
-        RandomeOrder();
+        ShowFood();
     }
 
     //Random kiểu menu
@@ -122,18 +121,17 @@ public class GameController : MonoBehaviour {
         return listItem;
     }
 
-    //void ShowFood(Dictionary<int, List<int>> gameObj)
-    //{
-    //    for (int i = 0; i < gameObj.Count; i++)
-    //    {
-    //        GameObject trans = Instantiate(gameObj.Keys., transform.position, Quaternion.identity) as GameObject;
-    //        trans.transform.SetParent(foodOrder.transform);
-    //    }
-    //}
+    void ShowFood()
+    {
+        for (int i = 0; i < listFoodActive.Count; i++)
+        {
+            GameObject trans = Instantiate(listFoodPrefab[listFoodActive[i]], transform.position, Quaternion.identity) as GameObject;
+            trans.transform.SetParent(foodOrder.transform);
+        }
+    }
 
-    //void ShowDrink(GameObject gameObj)
-    //{
-    //    GameObject trans = Instantiate(gameObj, transform.position, Quaternion.identity) as GameObject;
-    //    trans.transform.SetParent(drinkOrder.transform);
-    //}
+    void ShowDrink()
+    {
+
+    }
 }
