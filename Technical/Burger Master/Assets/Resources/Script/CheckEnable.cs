@@ -52,12 +52,12 @@ public class CheckEnable : MonoBehaviour {
         GameObject trans;
         if (index == FoodOrder.Instance.listCheck[numCheck].GetComponent<PrefabScript>().index) //Kiểm tra index của cục được click với index của item bên trong listCheck
         {
-            if (GameControl.Instance.CheckRight(index))
-            {
-                trans = Instantiate(FoodOrder.Instance.listPrefab[index - 1], transform.position, Quaternion.identity) as GameObject;
-                trans.transform.SetParent(transParentFood.transform);
-                numCheck--;
-            }
+            //if (GameControl.Instance.CheckRight(index))
+            //{
+            //    trans = Instantiate(FoodOrder.Instance.listPrefab[index - 1], transform.position, Quaternion.identity) as GameObject;
+            //    trans.transform.SetParent(transParentFood.transform);
+            //    numCheck--;
+            //}
         }
     }
 

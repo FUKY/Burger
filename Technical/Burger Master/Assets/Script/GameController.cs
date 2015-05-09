@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameController : MonoBehaviour {
 
@@ -11,19 +12,27 @@ public class GameController : MonoBehaviour {
 
     public List<GameObject> listFoodItem;
     public List<GameObject> listDrinkItem;
+    public List<GameObject> listFoodPrefab;
+    public List<GameObject> listDrinkPrefab;
 
     public GameObject foodOrder;
     public GameObject drinkOrder;
 
+    public bool isDone = false;
+
     // Use this for initialization
 	void Start () {
-        order = RandomeOrder();
         ActiveItemFoodAndDrink();
+        order = RandomeOrder();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (isDone == true)
+        {
+            ShowOrder();
+            isDone = false;
+        }
 	}
 
     [ContextMenu("ActiveItem")]
@@ -51,25 +60,33 @@ public class GameController : MonoBehaviour {
 
     public void ShowOrder() 
     {
-        
+        int rand = Random.Range(0, 3);
+        RandomeOrder();
     }
 
+    //Random kiểu menu
     Dictionary<int, List<int>> RandomeOrder() 
     {
         Dictionary<int, List<int>> orderTemp = new Dictionary<int, List<int>>();
 
         int rand = Random.Range(0, 3);
-        switch (rand) 
+        switch (rand)
         {
             case (int)TypeOrder.NONE:
+                foodOrder.SetActive(true);
+                drinkOrder.SetActive(true);
                 //randome ra ca 2
                 orderTemp.Add((int)TypeOrder.FOOD, RandomeListItem(TypeOrder.FOOD, listFoodActive));
                 orderTemp.Add((int)TypeOrder.DRINK, RandomeListItem(TypeOrder.DRINK, listDrinkActive));
                 break;
             case (int)TypeOrder.FOOD:
+                foodOrder.SetActive(false);
+                drinkOrder.SetActive(true);
                 orderTemp.Add((int)TypeOrder.FOOD, RandomeListItem(TypeOrder.FOOD, listFoodActive));
                 break;
             case (int)TypeOrder.DRINK:
+                drinkOrder.SetActive(false);
+                foodOrder.SetActive(true);
                 orderTemp.Add((int)TypeOrder.DRINK, RandomeListItem(TypeOrder.DRINK, listDrinkActive));
                 break;
         }
@@ -82,25 +99,41 @@ public class GameController : MonoBehaviour {
         int count = 0;
         if (type == TypeOrder.FOOD)
         {
-            count = Random.Range(1, 5);
+            count = Random.Range(1, 6);
             listItem.Add((int)TypeFood.BASE);
         }
         else if (type == TypeOrder.DRINK)
         {
-            count = 1;
+            count = Random.Range(1, 3);
         }
-
-        for (int i = 0; i < count; i++)
+        if (listItemActive.Count > 0)
         {
-            int index = Random.Range(0, listItemActive.Count);
-            listItem.Add(listItemActive[index]);
+            for (int i = 0; i < count; i++)
+            {
+                int index = Random.Range(0, listItemActive.Count);
+                listItem.Add(listItemActive[index]);
+            }
         }
 
         if (type == TypeOrder.FOOD)
         {
             listItem.Add((int)TypeFood.CAPS);
         }
-
         return listItem;
     }
+
+    //void ShowFood(Dictionary<int, List<int>> gameObj)
+    //{
+    //    for (int i = 0; i < gameObj.Count; i++)
+    //    {
+    //        GameObject trans = Instantiate(gameObj.Keys., transform.position, Quaternion.identity) as GameObject;
+    //        trans.transform.SetParent(foodOrder.transform);
+    //    }
+    //}
+
+    //void ShowDrink(GameObject gameObj)
+    //{
+    //    GameObject trans = Instantiate(gameObj, transform.position, Quaternion.identity) as GameObject;
+    //    trans.transform.SetParent(drinkOrder.transform);
+    //}
 }

@@ -11,7 +11,6 @@ public class DrinkOrder : MonoSingleton<DrinkOrder> {
     public Transform drinkTransform;
     public int indexOfMenu;
     int indexOfList;
-    public GameControl gameControl;
     FixItem fixItem;
     public bool isRand = true;
 	// Use this for initialization

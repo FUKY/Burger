@@ -28,12 +28,10 @@ public class BoardItem : MonoBehaviour {
     //    {
     //        item.GetComponent<CheckEnable>().SetEnable(false);
     //    }
-
     //    for (int i = 0; i < listItemActive.Count; i++ )
     //    {
     //        int index = listItemActive[i];
     //        listItem[index].GetComponent<CheckEnable>().SetEnable(true);
     //    }
-        
     //}
 }
