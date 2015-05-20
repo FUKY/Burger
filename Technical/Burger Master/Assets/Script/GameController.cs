@@ -67,8 +67,15 @@ public class GameController : MonoBehaviour {
     Dictionary<int, List<int>> RandomeOrder() 
     {
         Dictionary<int, List<int>> orderTemp = new Dictionary<int, List<int>>();
-
-        int rand = Random.Range(0, 3);
+        int rand;
+        if (listDrinkActive.Count <= 0)
+        {
+            rand = 1;
+        }
+        else
+        {
+            rand = Random.Range(0, 3);
+        }
         switch (rand)
         {
             case (int)TypeOrder.NONE:
@@ -79,13 +86,13 @@ public class GameController : MonoBehaviour {
                 orderTemp.Add((int)TypeOrder.DRINK, RandomeListItem(TypeOrder.DRINK, listDrinkActive));
                 break;
             case (int)TypeOrder.FOOD:
-                foodOrder.SetActive(false);
-                drinkOrder.SetActive(true);
+                foodOrder.SetActive(true);
+                drinkOrder.SetActive(false);
                 orderTemp.Add((int)TypeOrder.FOOD, RandomeListItem(TypeOrder.FOOD, listFoodActive));
                 break;
             case (int)TypeOrder.DRINK:
-                drinkOrder.SetActive(false);
-                foodOrder.SetActive(true);
+                drinkOrder.SetActive(true);
+                foodOrder.SetActive(false);
                 orderTemp.Add((int)TypeOrder.DRINK, RandomeListItem(TypeOrder.DRINK, listDrinkActive));
                 break;
         }
