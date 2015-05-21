@@ -106,17 +106,19 @@ public class GameController : MonoBehaviour {
         if (type == TypeOrder.FOOD)
         {
             count = Random.Range(1, 6);
+            Debug.Log("count " + count);
             listItem.Add((int)TypeFood.BASE);
         }
         else if (type == TypeOrder.DRINK)
         {
-            count = Random.Range(1, 3);
+            count = 1;
         }
         if (listItemActive.Count > 0)
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < count; i--)
             {
                 int index = Random.Range(0, listItemActive.Count);
+                Random.seed = index;
                 listItem.Add(listItemActive[index]);
             }
         }
@@ -130,15 +132,31 @@ public class GameController : MonoBehaviour {
 
     void ShowFood()
     {
-        for (int i = 0; i < listFoodActive.Count; i++)
+        List<int> listFoodTemp = new List<int>();
+        if (order.ContainsKey((int)TypeOrder.FOOD))
         {
-            GameObject trans = Instantiate(listFoodPrefab[listFoodActive[i]], transform.position, Quaternion.identity) as GameObject;
-            trans.transform.SetParent(foodOrder.transform);
+            listFoodTemp = order[(int)TypeOrder.FOOD];
+            for (int i = 0; i < listFoodTemp.Count; i++)
+            {
+                GameObject trans = Instantiate(listFoodPrefab[listFoodTemp[i]], transform.position, Quaternion.identity) as GameObject;
+                trans.transform.SetParent(foodOrder.transform);
+                //FixItem.Instance.Fix();
+            }
         }
     }
 
     void ShowDrink()
     {
-
+        //List<int> listDrinkTemp = new List<int>();
+        //if (order.ContainsKey((int)TypeOrder.DRINK))
+        //{
+        //    listDrinkTemp = order[(int)TypeOrder.DRINK];
+        //    for (int i = 0; i < listDrinkTemp.Count; i++)
+        //    {
+        //        GameObject trans = Instantiate(listDrinkPrefab[listDrinkTemp[i]], transform.position, Quaternion.identity) as GameObject;
+        //        trans.transform.SetParent(drinkOrder.transform);
+        //        FixItem.Instance.Fix();
+        //    }
+        //}
     }
 }

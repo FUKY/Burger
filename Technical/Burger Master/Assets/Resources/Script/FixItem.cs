@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class FixItem : MonoBehaviour {
+public class FixItem : MonoSingleton<FixItem> {
 
     public int column = 1;
     public int row = 1;
