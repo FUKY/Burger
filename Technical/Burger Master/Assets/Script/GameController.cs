@@ -106,7 +106,6 @@ public class GameController : MonoBehaviour {
         if (type == TypeOrder.FOOD)
         {
             count = Random.Range(1, 6);
-            Debug.Log("count " + count);
             listItem.Add((int)TypeFood.BASE);
         }
         else if (type == TypeOrder.DRINK)
@@ -115,7 +114,7 @@ public class GameController : MonoBehaviour {
         }
         if (listItemActive.Count > 0)
         {
-            for (int i = 0; i < count; i--)
+            for (int i = 0; i < count; i++)
             {
                 int index = Random.Range(0, listItemActive.Count);
                 Random.seed = index;
