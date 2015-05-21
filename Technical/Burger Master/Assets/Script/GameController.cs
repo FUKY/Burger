@@ -17,8 +17,10 @@ public class GameController : MonoSingleton<GameController> {
 
     public GameObject foodOrder;
     public GameObject drinkOrder;
+    public List<int> listFoodCheck = new List<int>();
 
-    public bool isDone = false;
+    CheckEnable checkEnable = null;
+    public bool isDone = true;
 
     // Use this for initialization
 	void Start () {
@@ -31,9 +33,15 @@ public class GameController : MonoSingleton<GameController> {
         if (isDone == true)
         {
             ShowOrder();
+            Invoke("Fix", 0.01f); //Delay số giây
             isDone = false;
         }
 	}
+
+    void Fix()
+    {
+        foodOrder.GetComponent<FixItem>().Fix();
+    }
 
     [ContextMenu("ActiveItem")]
     public void ActiveItemFoodAndDrink() 
@@ -61,6 +69,7 @@ public class GameController : MonoSingleton<GameController> {
     public void ShowOrder() 
     {
         ShowFood();
+        ShowDrink();
     }
 
     //Random kiểu menu
@@ -126,23 +135,27 @@ public class GameController : MonoSingleton<GameController> {
         {
             listItem.Add((int)TypeFood.CAPS);
         }
+        foreach(var item in listItem)
+        {
+            Debug.Log("Type" + item);
+        }
         return listItem;
     }
 
-    void ShowFood()
+    List<int> ShowFood()
     {
-        List<int> listFoodTemp = new List<int>();
         if (order.ContainsKey((int)TypeOrder.FOOD))
         {
-            listFoodTemp = order[(int)TypeOrder.FOOD];
-            for (int i = listFoodTemp.Count - 1; i >= 0; i--)
+            listFoodCheck = null;
+            listFoodCheck = order[(int)TypeOrder.FOOD];
+            for (int i = listFoodCheck.Count - 1; i >= 0; i--)
             {
-                GameObject trans = Instantiate(listFoodPrefab[listFoodTemp[i]], transform.position, Quaternion.identity) as GameObject;
+                GameObject trans = Instantiate(listFoodPrefab[listFoodCheck[i]], transform.position, Quaternion.identity) as GameObject;
                 trans.transform.SetParent(foodOrder.transform);
                 trans.transform.localScale = Vector3.one;
             }
-            foodOrder.GetComponent<FixItem>().Fix();
         }
+        return listFoodCheck;
     }
 
     void ShowDrink()
@@ -151,11 +164,33 @@ public class GameController : MonoSingleton<GameController> {
         if (order.ContainsKey((int)TypeOrder.DRINK))
         {
             listDrinkTemp = order[(int)TypeOrder.DRINK];
+            
             for (int i = 0; i < listDrinkTemp.Count; i++)
             {
                 GameObject trans = Instantiate(listDrinkPrefab[listDrinkTemp[i]], transform.position, Quaternion.identity) as GameObject;
                 trans.transform.SetParent(drinkOrder.transform);
+                trans.transform.localScale = Vector3.one;
+            }
+            drinkOrder.GetComponent<FixItem>().Fix();
+        }
+    }
+
+    int numCheck = 0;
+    public bool Check(int foodType)
+    {
+        if (numCheck >= listFoodCheck.Count)
+        {
+            isDone = true;
+            Debug.Log("true");
+        }
+        if (numCheck < listFoodCheck.Count)
+        {
+            if (foodType == listFoodCheck[numCheck])
+            {
+                numCheck++;
+                return true;
             }
         }
+        return false;
     }
 }

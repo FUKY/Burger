@@ -23,10 +23,10 @@ public class TimeRemain : MonoBehaviour {
                 timeCurrent = 60;
                 timeColor.fillAmount = 1;
             }
-            timeColor.fillAmount -= ((float)1 / (float)60);
             timeCurrent -= second;
             textTime.text = timeCurrent.ToString();
             timeDecrease = 0;
         }
+        timeColor.fillAmount -= (float)1 / (float)60 * Time.deltaTime;
 	}
 }

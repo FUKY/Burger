@@ -12,8 +12,13 @@ public class CheckEnable : MonoBehaviour {
     public GameObject itemDisable;
     public GameObject transParentFood;
     public GameObject transParentDrink;
+    GameController gameController;
 
-    int numCheck = 0;
+    public GameObject disc;
+
+    float width, height;
+
+
     // Use this for initialization
     void Start()
     {
@@ -48,10 +53,20 @@ public class CheckEnable : MonoBehaviour {
 
     public void ButtonFoodClick()
     {
+        if (GameController.Instance.Check((int)foodType))
+        {
+            GameObject trans = Instantiate(GameController.Instance.listFoodPrefab[(int)foodType], transform.position, Quaternion.identity) as GameObject;
+            trans.transform.SetParent(transParentFood.transform);
+            trans.transform.localScale = Vector3.one;
+            RectExtension.SetSize(trans.GetComponent<RectTransform>(), Resize(trans.GetComponent<RectTransform>().rect.height / trans.GetComponent<RectTransform>().rect.width));
+        }
     }
 
-    public void DrinkClick()
+    Vector2 Resize(float curRatio)
     {
-
+        Vector2 newSize = new Vector2();
+        newSize.x = disc.GetComponent<Image>().rectTransform.GetSize().x * 0.8f;
+        newSize.y = newSize.x * curRatio;
+        return newSize;
     }
 }
