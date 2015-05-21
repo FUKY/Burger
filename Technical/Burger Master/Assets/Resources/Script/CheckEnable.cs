@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CheckEnable : MonoBehaviour {
 
     public bool isEnable = false;
-    public int index;
+    public TypeFood foodType;
     public GameObject itemEnable;
     public GameObject itemDisable;
     public GameObject transParentFood;
@@ -46,32 +46,12 @@ public class CheckEnable : MonoBehaviour {
         }
     }
 
-    public void FoodClick()
+    public void ButtonFoodClick()
     {
-        //GameObject trans;
-        //if (index == FoodOrder.Instance.listCheck[numCheck].GetComponent<PrefabScript>().index) //Kiểm tra index của cục được click với index của item bên trong listCheck
-        //{
-        //    if (GameControl.Instance.CheckRight(index))
-        //    {
-        //        trans = Instantiate(FoodOrder.Instance.listPrefab[index - 1], transform.position, Quaternion.identity) as GameObject;
-        //        trans.transform.SetParent(transParentFood.transform);
-        //        numCheck--;
-        //    }
-        //}
     }
 
     public void DrinkClick()
     {
-        //GameObject cucduocclick;
-        //GameObject trans;
-        //if (DrinkOrder.Instance.dictionaryDrink.ContainsKey(index))
-        //{
-        //    if (true)
-        //    {
-        //        cucduocclick = DrinkOrder.Instance.dictionaryDrink[index];
-        //        trans = Instantiate(DrinkOrder.Instance.dictionaryDrink[index], transform.position, Quaternion.identity) as GameObject;
-        //        trans.transform.SetParent(transParentDrink.transform);
-        //    }
-        //}
+
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoSingleton<GameController> {
 
     Dictionary<int, List<int>> order;
     
@@ -135,27 +135,27 @@ public class GameController : MonoBehaviour {
         if (order.ContainsKey((int)TypeOrder.FOOD))
         {
             listFoodTemp = order[(int)TypeOrder.FOOD];
-            for (int i = 0; i < listFoodTemp.Count; i++)
+            for (int i = listFoodTemp.Count - 1; i >= 0; i--)
             {
                 GameObject trans = Instantiate(listFoodPrefab[listFoodTemp[i]], transform.position, Quaternion.identity) as GameObject;
                 trans.transform.SetParent(foodOrder.transform);
-                //FixItem.Instance.Fix();
+                trans.transform.localScale = Vector3.one;
             }
+            foodOrder.GetComponent<FixItem>().Fix();
         }
     }
 
     void ShowDrink()
     {
-        //List<int> listDrinkTemp = new List<int>();
-        //if (order.ContainsKey((int)TypeOrder.DRINK))
-        //{
-        //    listDrinkTemp = order[(int)TypeOrder.DRINK];
-        //    for (int i = 0; i < listDrinkTemp.Count; i++)
-        //    {
-        //        GameObject trans = Instantiate(listDrinkPrefab[listDrinkTemp[i]], transform.position, Quaternion.identity) as GameObject;
-        //        trans.transform.SetParent(drinkOrder.transform);
-        //        FixItem.Instance.Fix();
-        //    }
-        //}
+        List<int> listDrinkTemp = new List<int>();
+        if (order.ContainsKey((int)TypeOrder.DRINK))
+        {
+            listDrinkTemp = order[(int)TypeOrder.DRINK];
+            for (int i = 0; i < listDrinkTemp.Count; i++)
+            {
+                GameObject trans = Instantiate(listDrinkPrefab[listDrinkTemp[i]], transform.position, Quaternion.identity) as GameObject;
+                trans.transform.SetParent(drinkOrder.transform);
+            }
+        }
     }
 }

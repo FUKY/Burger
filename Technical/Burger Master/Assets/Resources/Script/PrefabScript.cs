@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PrefabScript : MonoBehaviour {
 
-    public int index;
+    public TypeFood foodType;
 
 
 	// Use this for initialization
