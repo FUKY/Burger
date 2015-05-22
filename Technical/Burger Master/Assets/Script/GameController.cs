@@ -33,8 +33,8 @@ public class GameController : MonoSingleton<GameController> {
         if (isDone == true)
         {
             ShowOrder();
-            Invoke("Fix", 0.01f); //Delay số giây
             isDone = false;
+            Invoke("Fix", 0.01f); //Delay số giây
         }
 	}
 
@@ -178,16 +178,20 @@ public class GameController : MonoSingleton<GameController> {
     int numCheck = 0;
     public bool Check(int foodType)
     {
-        if (numCheck >= listFoodCheck.Count)
+        if (numCheck == listFoodCheck.Count - 1)
         {
-            isDone = true;
-            Debug.Log("true");
+            MoveTable.Instance.isMove = true;
+            foreach (Transform child in foodOrder.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
         if (numCheck < listFoodCheck.Count)
         {
             if (foodType == listFoodCheck[numCheck])
             {
-                numCheck++;
+                //numCheck++;
+                listFoodCheck.RemoveAt(numCheck);
                 return true;
             }
         }

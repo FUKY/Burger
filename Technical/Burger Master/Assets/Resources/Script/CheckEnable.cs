@@ -58,7 +58,19 @@ public class CheckEnable : MonoBehaviour {
             GameObject trans = Instantiate(GameController.Instance.listFoodPrefab[(int)foodType], transform.position, Quaternion.identity) as GameObject;
             trans.transform.SetParent(transParentFood.transform);
             trans.transform.localScale = Vector3.one;
-            RectExtension.SetSize(trans.GetComponent<RectTransform>(), Resize(trans.GetComponent<RectTransform>().rect.height / trans.GetComponent<RectTransform>().rect.width));
+            //RectExtension.SetSize(trans.GetComponent<RectTransform>(), Resize(trans.GetComponent<RectTransform>().rect.height / trans.GetComponent<RectTransform>().rect.width));
+        }
+    }
+
+    void DestroyFood()
+    {
+        if (MoveTable.Instance.isMove)
+        {
+            foreach (Transform child in transParentFood.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            Debug.Log("destroy");
         }
     }
 
