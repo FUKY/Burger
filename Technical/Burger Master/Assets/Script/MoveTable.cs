@@ -31,6 +31,7 @@ public class MoveTable : MonoSingleton<MoveTable> {
         if (isMove)
         {
             isMove = false;
+            GameController.Instance.isDone = true;
             StartMove();
             yield return new WaitForSeconds(1.0f);
             FoodOrder.Instance.DestroyChild();

@@ -25,13 +25,14 @@ public class GameController : MonoSingleton<GameController> {
     // Use this for initialization
 	void Start () {
         ActiveItemFoodAndDrink();
-        order = RandomeOrder();
+        //order = RandomeOrder();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (isDone == true)
         {
+            order = RandomeOrder();
             ShowOrder();
             isDone = false;
             Invoke("Fix", 0.01f); //Delay số giây
