@@ -12,11 +12,9 @@ public class CheckEnable : MonoBehaviour {
     public GameObject itemDisable;
     public GameObject transParentFood;
     public GameObject transParentDrink;
-    GameController gameController;
 
     public GameObject disc;
 
-    float width, height;
 
 
     // Use this for initialization
@@ -59,6 +57,14 @@ public class CheckEnable : MonoBehaviour {
             trans.transform.SetParent(transParentFood.transform);
             trans.transform.localScale = Vector3.one;
             //RectExtension.SetSize(trans.GetComponent<RectTransform>(), Resize(trans.GetComponent<RectTransform>().rect.height / trans.GetComponent<RectTransform>().rect.width));
+        }
+        else
+        {
+            GameController.Instance.numCheck = 0;
+            foreach (Transform child in transParentFood.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 

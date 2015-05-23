@@ -19,7 +19,6 @@ public class GameController : MonoSingleton<GameController> {
     public GameObject drinkOrder;
     public List<int> listFoodCheck = new List<int>();
 
-    CheckEnable checkEnable = null;
     public bool isDone = true;
 
     // Use this for initialization
@@ -176,23 +175,23 @@ public class GameController : MonoSingleton<GameController> {
         }
     }
 
-    int numCheck = 0;
+    public int numCheck = 0;
     public bool Check(int foodType)
     {
-        if (numCheck == listFoodCheck.Count - 1)
-        {
-            MoveTable.Instance.isMove = true;
-            foreach (Transform child in foodOrder.transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
         if (numCheck < listFoodCheck.Count)
         {
             if (foodType == listFoodCheck[numCheck])
             {
-                //numCheck++;
-                listFoodCheck.RemoveAt(numCheck);
+                Debug.Log("Đúng " + numCheck);
+                numCheck++;
+                if (numCheck == listFoodCheck.Count)
+                {
+                    MoveTable.Instance.isMove = true;
+                    foreach (Transform child in foodOrder.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
                 return true;
             }
         }

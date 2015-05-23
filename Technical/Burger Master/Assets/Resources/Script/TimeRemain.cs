@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class TimeRemain : MonoBehaviour {
+public class TimeRemain : MonoSingleton<TimeRemain> {
 
     public Text textTime;
     public Image timeColor;
