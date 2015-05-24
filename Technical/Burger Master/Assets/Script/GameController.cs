@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GameController : MonoSingleton<GameController> {
 
@@ -15,6 +16,9 @@ public class GameController : MonoSingleton<GameController> {
     public List<GameObject> listFoodPrefab;
     public List<GameObject> listDrinkPrefab;
 
+    public List<Button> listButtonFood; //Chứa các button để có thể active hoặc disactive
+    public List<Button> listButtonDrink;
+    
     public GameObject foodOrder;
     public GameObject drinkOrder;
     public List<int> listFoodCheck = new List<int>();
@@ -46,23 +50,25 @@ public class GameController : MonoSingleton<GameController> {
     [ContextMenu("ActiveItem")]
     public void ActiveItemFoodAndDrink() 
     {
-        ActiveItem(listFoodItem, listFoodActive);
-        ActiveItem(listDrinkItem, listDrinkActive);
+        ActiveItem(listFoodItem, listFoodActive, listButtonFood);
+        ActiveItem(listDrinkItem, listDrinkActive, listButtonDrink);
     }
 
     
-    public void ActiveItem(List<GameObject> listItemObj, List<int> listItemActive) 
+    public void ActiveItem(List<GameObject> listItemObj, List<int> listItemActive, List<Button> listButton) 
     {
         for (int i = 0; i < listItemObj.Count; i++)
         {
             GameObject item = listItemObj[i];
             item.GetComponent<CheckEnable>().SetEnable(false);
+            listButton[i].enabled = false;
         }
 
         for (int i = 0; i < listItemActive.Count; i++)
         {
             int index = listItemActive[i];
             listItemObj[index].GetComponent<CheckEnable>().SetEnable(true);
+            listButton[index].enabled = true;
         }
     }
 

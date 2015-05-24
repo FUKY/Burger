@@ -5,6 +5,8 @@ public class ButtonController : MonoBehaviour {
 
     public GameObject gameMain;
     public GameObject gameStart;
+    public GameObject gameSetting;
+    public GameObject aboutUs;
 	// Use this for initialization
 	void Start () {
 	
@@ -33,6 +35,6 @@ public class ButtonController : MonoBehaviour {
 
     public void ExitClick()
     {
-
+        Application.Quit();
     }
 }
