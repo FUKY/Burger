@@ -79,12 +79,4 @@ public class CheckEnable : MonoBehaviour {
             Debug.Log("destroy");
         }
     }
-
-    Vector2 Resize(float curRatio)
-    {
-        Vector2 newSize = new Vector2();
-        newSize.x = disc.GetComponent<Image>().rectTransform.GetSize().x * 0.8f;
-        newSize.y = newSize.x * curRatio;
-        return newSize;
-    }
 }

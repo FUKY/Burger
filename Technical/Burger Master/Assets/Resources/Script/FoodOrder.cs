@@ -9,6 +9,7 @@ public class FoodOrder : MonoSingleton<FoodOrder>
     public GameObject table;
     void Start()
     {
+
     }
 
     void Update()

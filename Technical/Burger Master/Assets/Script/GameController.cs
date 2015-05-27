@@ -197,6 +197,7 @@ public class GameController : MonoSingleton<GameController> {
                     {
                         Destroy(child.gameObject);
                     }
+                    numCheck = 0;
                 }
                 return true;
             }
