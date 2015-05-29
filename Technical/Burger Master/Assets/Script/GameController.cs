@@ -121,6 +121,7 @@ public class GameController : MonoSingleton<GameController> {
         if (type == TypeOrder.FOOD)
         {
             count = Random.Range(1, 6);
+            Debug.Log("Count: " + count);
             listItem.Add((int)TypeFood.BASE);
         }
         else if (type == TypeOrder.DRINK)
@@ -129,10 +130,15 @@ public class GameController : MonoSingleton<GameController> {
         }
         if (listItemActive.Count > 0)
         {
+            int prev = 0;
+            int index = 0;
             for (int i = 0; i < count; i++)
             {
-                int index = Random.Range(0, listItemActive.Count);
-                Random.seed = index;
+                do
+                {
+                    index = Random.Range(1, listItemActive.Count - 1);
+                } while (prev == index);
+                prev = index;
                 listItem.Add(listItemActive[index]);
             }
         }
@@ -140,10 +146,6 @@ public class GameController : MonoSingleton<GameController> {
         if (type == TypeOrder.FOOD)
         {
             listItem.Add((int)TypeFood.CAPS);
-        }
-        foreach(var item in listItem)
-        {
-            Debug.Log("Type" + item);
         }
         return listItem;
     }
@@ -154,7 +156,7 @@ public class GameController : MonoSingleton<GameController> {
         {
             listFoodCheck = null;
             listFoodCheck = order[(int)TypeOrder.FOOD];
-            for (int i = listFoodCheck.Count - 1; i >= 0; i--)
+            for (int i = listFoodCheck.Count - 1; i >= 0 ; i--)
             {
                 GameObject trans = Instantiate(listFoodPrefab[listFoodCheck[i]], transform.position, Quaternion.identity) as GameObject;
                 trans.transform.SetParent(foodOrder.transform);
@@ -177,7 +179,6 @@ public class GameController : MonoSingleton<GameController> {
                 trans.transform.SetParent(drinkOrder.transform);
                 trans.transform.localScale = Vector3.one;
             }
-            drinkOrder.GetComponent<FixItem>().Fix();
         }
     }
 

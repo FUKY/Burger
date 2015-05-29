@@ -7,7 +7,7 @@ public class TimeRemain : MonoSingleton<TimeRemain> {
     public Text textTime;
     public Image timeColor;
     float timeDecrease = 0;
-    float timeCurrent = 60;
+    float timeCurrent = 10;
 	// Use this for initialization
 	void Start () {
 	}
@@ -15,9 +15,10 @@ public class TimeRemain : MonoSingleton<TimeRemain> {
 	// Update is called once per frame
 	void Update () {
         CountDown();
-        if (GetTime() <= 0)
+        if (CheckTime())
         {
             LevelController.Instance.LevelUp();
+            
         }
 	}
 
@@ -29,7 +30,7 @@ public class TimeRemain : MonoSingleton<TimeRemain> {
             textTime.text = timeCurrent.ToString();
             timeDecrease = 0;
         }
-        timeColor.fillAmount -= (float)1 / (float)60 * Time.deltaTime;
+        timeColor.fillAmount -= (float)1 / (float)10 * Time.deltaTime;
     }
 
     public float GetTime()
@@ -44,7 +45,7 @@ public class TimeRemain : MonoSingleton<TimeRemain> {
 
     public void ResetTime()
     {
-        this.SetTime(60);
+        this.SetTime(10);
         timeColor.fillAmount = 1;
     }
 

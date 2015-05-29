@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ButtonController : MonoBehaviour {
+public class ButtonController : MonoSingleton<ButtonController> {
 
     public GameObject gameMain;
     public GameObject gameStart;
     public GameObject gameSetting;
     public GameObject aboutUs;
+    public GameObject gamePass;
 	// Use this for initialization
 	void Start () {
 	
@@ -36,5 +37,23 @@ public class ButtonController : MonoBehaviour {
     public void ExitClick()
     {
         Application.Quit();
+    }
+
+    public void PassLevel()
+    {
+        gameMain.SetActive(false);
+        gamePass.SetActive(true);
+    }
+
+    public void ContinueClick()
+    {
+        gamePass.SetActive(false);
+        gameMain.SetActive(true);
+    }
+
+    public void MainMenuClick()
+    {
+        gameStart.SetActive(true);
+        gamePass.SetActive(false);
     }
 }

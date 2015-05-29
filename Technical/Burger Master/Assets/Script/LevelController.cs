@@ -10,7 +10,7 @@ public class LevelController : MonoSingleton<LevelController> {
 	void Start () {
         timeRemain = new TimeRemain();
         pointController = new PointController();
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("level");
         GetLevel();
 	}
 	
@@ -44,12 +44,12 @@ public class LevelController : MonoSingleton<LevelController> {
         {
             this.level++;
             SetLevel(this.level);
-            Debug.Log(level);
             PlayerPrefs.DeleteKey("level");
             PlayerPrefs.SetInt("level", level);
             TimeRemain.Instance.ResetTime();
             PointController.Instance.ResetScore();
             PointController.Instance.ShowPoint();
+            ButtonController.Instance.PassLevel();
         }
     }
 }
