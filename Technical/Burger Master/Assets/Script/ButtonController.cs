@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ButtonController : MonoSingleton<ButtonController> {
+public class ButtonController : MonoSingleton<ButtonController>
+{
 
     public GameObject gameMain;
     public GameObject gameStart;
     public GameObject gameSetting;
     public GameObject aboutUs;
     public GameObject gamePass;
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public GameObject gameOver;
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void PlayClick()
     {
@@ -55,5 +59,19 @@ public class ButtonController : MonoSingleton<ButtonController> {
     {
         gameStart.SetActive(true);
         gamePass.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        gameMain.SetActive(false);
+        gameOver.SetActive(true);
+    }
+
+    public void ReplayClick()
+    {
+        gameOver.SetActive(false);
+        gameMain.SetActive(true);
+        TimeRemain.Instance.ResetTime();
+        GameController.Instance.ResetGameMain();
     }
 }

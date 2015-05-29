@@ -22,7 +22,7 @@ public class PointController : MonoSingleton<PointController> {
 
     public void ShowPoint()
     {
-        scoreDes = levelController.GetLevel() * 10;
+        scoreDes = levelController.GetLevel() * 100;
         pointDes.text = scoreDes.ToString();
     }
 
@@ -49,6 +49,7 @@ public class PointController : MonoSingleton<PointController> {
 
     public int GetDes()
     {
+        Debug.Log(this.scoreDes);
         return this.scoreDes;
     }
 
@@ -60,7 +61,7 @@ public class PointController : MonoSingleton<PointController> {
 
     public bool CheckScore()
     {
-        if (this.score >= this.scoreDes)
+        if (GetScore() >= GetDes())
         {
             return true;
         }

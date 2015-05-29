@@ -18,12 +18,19 @@ public class MoveTable : MonoSingleton<MoveTable> {
 
     void StartMove()
     {
-        iTween.MoveTo(gameObject, tableContainer.transform.position, 1.0f);
+        iTween.MoveTo(gameObject, iTween.Hash(
+            iT.MoveTo.position, tableContainer.transform.position,
+            iT.MoveTo.time, 0.5f,
+            iT.MoveTo.oncomplete, "MoveBack"));
     }
 
     void MoveBack()
     {
-        iTween.MoveTo(gameObject, posStart, 1.0f);
+        FoodOrder.Instance.DestroyChild();
+        iTween.MoveTo(gameObject, iTween.Hash(
+            iT.MoveTo.position, posStart,
+            iT.MoveTo.time, 0.5f,
+            iT.MoveTo.oncomplete, "DoneEqualTrue"));
     }
 
     IEnumerator Move()
@@ -32,12 +39,13 @@ public class MoveTable : MonoSingleton<MoveTable> {
         {
             isMove = false;
             yield return new WaitForSeconds(0.5f);
-            GameController.Instance.isDone = true;
             StartMove();
-            yield return new WaitForSeconds(1f);
-            FoodOrder.Instance.DestroyChild();
-            MoveBack();
-            Debug.Log("Move");
+            
         }
+    }
+
+    void DoneEqualTrue()
+    {
+        GameController.Instance.isDone = true;
     }
 }

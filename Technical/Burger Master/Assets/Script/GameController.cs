@@ -121,7 +121,6 @@ public class GameController : MonoSingleton<GameController> {
         if (type == TypeOrder.FOOD)
         {
             count = Random.Range(1, 6);
-            Debug.Log("Count: " + count);
             listItem.Add((int)TypeFood.BASE);
         }
         else if (type == TypeOrder.DRINK)
@@ -189,20 +188,39 @@ public class GameController : MonoSingleton<GameController> {
         {
             if (foodType == listFoodCheck[numCheck])
             {
-                Debug.Log("Đúng " + numCheck);
                 numCheck++;
                 if (numCheck == listFoodCheck.Count)
                 {
                     MoveTable.Instance.isMove = true;
-                    foreach (Transform child in foodOrder.transform)
-                    {
-                        Destroy(child.gameObject);
-                    }
+                    DestroyFoodOrder();
                     numCheck = 0;
                 }
                 return true;
             }
+            else
+            {
+                numCheck = 0;
+            }
         }
         return false;
+    }
+
+    void DestroyFoodOrder()
+    {
+        foreach (Transform child in foodOrder.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void ResetGameMain()
+    {
+        CheckEnable checkEnable = (CheckEnable)GameObject.Find("food_item_11").GetComponent(typeof(CheckEnable));
+        checkEnable.DestroyFood();
+        DestroyFoodOrder();
+        TimeRemain.Instance.ResetTime();
+        PointController.Instance.ResetScore();
+        numCheck = 0;
+        isDone = true;
     }
 }

@@ -10,7 +10,6 @@ public class LevelController : MonoSingleton<LevelController> {
 	void Start () {
         timeRemain = new TimeRemain();
         pointController = new PointController();
-        PlayerPrefs.DeleteKey("level");
         GetLevel();
 	}
 	
@@ -40,16 +39,19 @@ public class LevelController : MonoSingleton<LevelController> {
 
     public void LevelUp()
     {
-        if (pointController.CheckScore())
+        if (PointController.Instance.CheckScore())
         {
             this.level++;
             SetLevel(this.level);
             PlayerPrefs.DeleteKey("level");
             PlayerPrefs.SetInt("level", level);
-            TimeRemain.Instance.ResetTime();
-            PointController.Instance.ResetScore();
+            GameController.Instance.ResetGameMain();
             PointController.Instance.ShowPoint();
             ButtonController.Instance.PassLevel();
+        }
+        else
+        {
+            ButtonController.Instance.GameOver();
         }
     }
 }
