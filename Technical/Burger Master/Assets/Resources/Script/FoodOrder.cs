@@ -22,6 +22,6 @@ public class FoodOrder : MonoSingleton<FoodOrder>
         {
             Destroy(child.gameObject);
         }
-        PointController.Instance.AddScore();
+        PointController.Instance.RightSub();
     }
 }

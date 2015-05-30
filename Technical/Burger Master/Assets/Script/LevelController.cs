@@ -4,12 +4,9 @@ using System.Collections;
 public class LevelController : MonoSingleton<LevelController> {
 
     int level;
-    TimeRemain timeRemain;
-    PointController pointController;
 	// Use this for initialization
 	void Start () {
-        timeRemain = new TimeRemain();
-        pointController = new PointController();
+        PlayerPrefs.DeleteAll();
         GetLevel();
 	}
 	
@@ -48,6 +45,7 @@ public class LevelController : MonoSingleton<LevelController> {
             GameController.Instance.ResetGameMain();
             PointController.Instance.ShowPoint();
             ButtonController.Instance.PassLevel();
+            GameController.Instance.AddItem();
         }
         else
         {

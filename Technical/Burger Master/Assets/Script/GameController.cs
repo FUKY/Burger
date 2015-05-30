@@ -138,6 +138,7 @@ public class GameController : MonoSingleton<GameController> {
                     index = Random.Range(1, listItemActive.Count - 1);
                 } while (prev == index);
                 prev = index;
+                Debug.Log(index);
                 listItem.Add(listItemActive[index]);
             }
         }
@@ -222,5 +223,29 @@ public class GameController : MonoSingleton<GameController> {
         PointController.Instance.ResetScore();
         numCheck = 0;
         isDone = true;
+    }
+
+    public void AddItem()
+    {
+        if (LevelController.Instance.GetLevel() > 1)
+        {
+            int index = RandomItem();
+            listFoodActive.Insert(listFoodActive.Count - 1, index);
+            ActiveItemFoodAndDrink();
+        }
+    }
+
+    int RandomItem()
+    {
+        int index;
+        foreach (int item in listFoodActive)
+        {
+            index = Random.Range(0, listFoodItem.Count);
+            if (!listFoodActive.Contains(index))
+            {
+                return index;
+            }
+        }
+        return -1;
     }
 }

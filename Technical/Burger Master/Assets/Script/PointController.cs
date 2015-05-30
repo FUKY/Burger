@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class PointController : MonoSingleton<PointController> {
 
     public Text point;
-    public Text pointDes;
-    int scoreDes;
-    int score = 0;
+    public Text rightQuest;
+    int rightNumber;
+    int wrongQuest = 0;
     LevelController levelController;
 	// Use this for initialization
 	void Start () {
@@ -22,47 +22,61 @@ public class PointController : MonoSingleton<PointController> {
 
     public void ShowPoint()
     {
-        scoreDes = levelController.GetLevel() * 100;
-        pointDes.text = scoreDes.ToString();
+        rightNumber = levelController.GetLevel() * 5;
+        Debug.Log(rightNumber);
+        rightQuest.text = rightNumber.ToString();
+        if (levelController.GetLevel() > 2)
+        {
+            wrongQuest = 3;
+        }
     }
 
-    public void AddScore()
+    public void WrongSub()
     {
-        score += 10;
-        point.text = score.ToString();
+        wrongQuest -= 1;
+        point.text = wrongQuest.ToString();
+    }
+
+    public void RightSub()
+    {
+        rightNumber -= 1;
+        rightQuest.text = rightNumber.ToString();
     }
 
     public void SetScore(int score)
     {
-        this.score = score;
+        this.wrongQuest = score;
     }
 
     public int GetScore()
     {
-        return this.score;
+        return this.wrongQuest;
     }
 
     public void SetDes(int scoreDes)
     {
-        this.scoreDes = scoreDes;
+        this.rightNumber = scoreDes;
     }
 
     public int GetDes()
     {
-        Debug.Log(this.scoreDes);
-        return this.scoreDes;
+        return this.rightNumber;
     }
 
     public void ResetScore()
     {
-        this.score = 0;
-        point.text = this.score.ToString();
+        this.wrongQuest = 0;
+        point.text = this.wrongQuest.ToString();
+        rightNumber = levelController.GetLevel() * 5;
+        rightQuest.text = rightNumber.ToString();
     }
 
     public bool CheckScore()
     {
-        if (GetScore() >= GetDes())
+        if (GetDes() <= 0)
         {
+            SetDes(0);
+            rightQuest.text = rightNumber.ToString();
             return true;
         }
         return false;
